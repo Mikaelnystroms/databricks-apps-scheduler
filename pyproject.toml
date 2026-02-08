@@ -1,0 +1,46 @@
+[build-system]
+requires = ["uv_build>=0.10.0,<0.11.0"]
+build-backend = "uv_build"
+
+[project]
+name = "databricks-apps-scheduler"
+version = "0.1.0"
+description = "CLI tool to start/stop Databricks Apps based on runtime scheduling rules."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Unlicense" }
+authors = [{ name = "Mikael Nyström" }]
+keywords = ["databricks", "apps", "scheduler", "automation", "cli"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: Public Domain",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: System :: Systems Administration",
+]
+dependencies = ["databricks-sdk>=0.57.0"]
+
+[project.urls]
+Homepage = "https://github.com/mikaelnystrom/databricks-apps-scheduler"
+Repository = "https://github.com/mikaelnystrom/databricks-apps-scheduler"
+Issues = "https://github.com/mikaelnystrom/databricks-apps-scheduler/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[project.scripts]
+databricks-apps-scheduler = "databricks_apps_scheduler.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

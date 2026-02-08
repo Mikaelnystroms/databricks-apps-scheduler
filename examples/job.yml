@@ -1,0 +1,32 @@
+# Reference Databricks Asset Bundle job to run this script on a schedule.
+resources:
+  jobs:
+    databricks_apps_scheduler:
+      name: databricks-apps-scheduler
+      max_concurrent_runs: 1
+      schedule:
+        quartz_cron_expression: "0 0 8/17 * * ?"
+        timezone_id: "UTC"
+        pause_status: "UNPAUSED"
+      tasks:
+        - task_key: manage_apps
+          # Replace with your cluster id, or switch to a new_cluster block.
+          existing_cluster_id: "<cluster-id>"
+          spark_python_task:
+            # Assumes this repo is synced to the workspace via Databricks Asset Bundles.
+            python_file: "${workspace.file_path}/src/databricks_apps_scheduler/cli.py"
+            parameters:
+              - --app-names
+              - app-a,app-b
+              - --timezone
+              - Europe/Stockholm
+              - --start-hour
+              - "8"
+              - --end-hour
+              - "17"
+              - --active-days
+              - all
+              - --action
+              - auto
+              - --output
+              - json
